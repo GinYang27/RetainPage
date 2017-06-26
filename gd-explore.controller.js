@@ -6,15 +6,6 @@
       }  
   });
 
-$scope.$on('$routeChangeSuccess', function() {
-    if(self.retainService.needRetain){
-        $timeout(function() { // wait for DOM, then restore scroll position
-            $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
-            self.retainService.setOkSave(true);
-        }, 500);  //TODO should user promise here, scroll after all preview boxes loaded.
-    }      
-});
-
  /* When the user click out of the page, clear the search term that was stored in navbarSearchService. */
 $scope.$on('$locationChangeStart', function() {
     self.navbarSearchService.setTerm('');
@@ -41,6 +32,11 @@ function init() {
         } else {
             getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, 0, self.itemIndex);
         }
+        /* set postion*/
+        $timeout(function() { // wait for DOM, then restore scroll position
+            $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
+            self.retainService.setOkSave(true);
+        }, 500);// Try to use promise here, scroll after all preview boxes loaded
     }else if(self.navbarSearchService.searchTerm === ''){
         self.endIndex = self.itemIndex + self.totalItemsPerPage;
         getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, self.itemIndex, self.endIndex);
@@ -51,24 +47,4 @@ function init() {
 }
 
 
-//Actually I can update my code like this
-// $scope.$on('$routeChangeSuccess', function() {
-//     if(self.retainService.needRetain){
-//         $timeout(function() { // wait for DOM, then restore scroll position
-//             $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
-//             self.retainService.setOkSave(true);
-//         }, 500);
-//     }      
-// });
 
-
-        } else {
-            getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, 0, self.itemIndex);
-        }
-        $timeout(function() { // wait for DOM, then restore scroll position
-            $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
-            self.retainService.setOkSave(true);
-        }, 500);
-    }else if(self.navbarSearchService.searchTerm === ''){
-        self.endIndex = self.itemIndex + self.totalItemsPerPage;
-        getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, self.itemIndex, self.endIndex);
