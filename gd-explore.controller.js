@@ -11,7 +11,7 @@ $scope.$on('$routeChangeSuccess', function() {
         $timeout(function() { // wait for DOM, then restore scroll position
             $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
             self.retainService.setOkSave(true);
-        }, 500);
+        }, 500);  //TODO should user promise here, scroll after all preview boxes loaded.
     }      
 });
 
