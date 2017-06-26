@@ -49,3 +49,26 @@ function init() {
     setTitleAndMeta();
     self.isMobile = isMobileService.isMobile();
 }
+
+
+//Actually I can update my code like this
+// $scope.$on('$routeChangeSuccess', function() {
+//     if(self.retainService.needRetain){
+//         $timeout(function() { // wait for DOM, then restore scroll position
+//             $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
+//             self.retainService.setOkSave(true);
+//         }, 500);
+//     }      
+// });
+
+
+        } else {
+            getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, 0, self.itemIndex);
+        }
+        $timeout(function() { // wait for DOM, then restore scroll position
+            $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
+            self.retainService.setOkSave(true);
+        }, 500);
+    }else if(self.navbarSearchService.searchTerm === ''){
+        self.endIndex = self.itemIndex + self.totalItemsPerPage;
+        getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, self.itemIndex, self.endIndex);
