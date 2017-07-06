@@ -22,3 +22,8 @@ Process
 2. into explore page, if needRetain = flase , init normally. catch scroll position by listener. We user is leaving($locationChangeStart), pass all parameter into retainService and set needRetain to ture.
 3. navigation back to explore, if needRetain = true, init parameters in controller by retainService.
 4. click explore button in header or footer, set needRetain = false.
+
+-----------Update 7/6/2017 -------------------
+After we update this funtion on server, it's unstable-- sometimes work but sometimes nav in a wrong position.
+I think it cause $timeout, I set it to 500ms, but it may take longer than that to finsih loaded view.
+So I update the code, using a directive to detect ng-repeat loaded then call scroll function instead of a fixed time.
