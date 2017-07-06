@@ -24,6 +24,16 @@ Process
 4. click explore button in header or footer, set needRetain = false.
 
 -----------Update 7/6/2017 -------------------
+
 After we update this funtion on server, it's unstable-- sometimes work but sometimes nav in a wrong position.
 I think it cause $timeout, I set it to 500ms, but it may take longer than that to finsih loaded view.
 So I update the code, using a directive to detect ng-repeat loaded then call scroll function instead of a fixed time.
+reference: https://stackoverflow.com/questions/15207788/calling-a-function-when-ng-repeat-has-finished
+
+Before this, I also tried 
+$scope.$on('$viewContentLoaded', myFunc); but doesn't work. 
+
+I also try to make a promise, based on https://www.youtube.com/watch?v=cdG_T6ufcbE&t=511s, make sure to scroll after get all items.
+However, got all items, which does not equal to ng-repeat loaded completely, so it's failed too.
+Luckily, I learned how to use custom promise to achieve acsync in AngularJS
+
