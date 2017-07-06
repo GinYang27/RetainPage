@@ -17,6 +17,13 @@ $scope.$on('$locationChangeStart', function() {
     self.retainService.setSearchOption(self.searchOptions);
 });
 
+ $scope.$on('ngRepeatFinished', function() {
+     if(self.retainService.needRetain){
+         $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
+         self.retainService.setOkSave(true);
+     }    
+ });
+
 function init() {
     getInterestArea();
     if(self.retainService.needRetain){
@@ -32,11 +39,7 @@ function init() {
         } else {
             getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, 0, self.itemIndex);
         }
-        /* set postion*/
-        $timeout(function() { // wait for DOM, then restore scroll position
-            $(window).scrollTop(self.retainService.position ? self.retainService.position : 0);
-            self.retainService.setOkSave(true);
-        }, 500);// Try to use promise here, scroll after all preview boxes loaded
+
     }else if(self.navbarSearchService.searchTerm === ''){
         self.endIndex = self.itemIndex + self.totalItemsPerPage;
         getDealPreviewBox(self.itemInterest, self.dealStatus, self.itemSortby, self.itemIndex, self.endIndex);
