@@ -37,3 +37,12 @@ I also try to make a promise, based on https://www.youtube.com/watch?v=cdG_T6ufc
 However, got all items, which does not equal to ng-repeat loaded completely, so it's failed too.
 Luckily, I learned how to use custom promise to achieve acsync in AngularJS
 
+----------Update 7/7/2017 ----------------
+
+We tested code on localhost, everything works well. But after deployed, we got an error: Unknown provider: aProvider <- a <- onFinishRenderDirective 
+I find it's the minified JS unglify $timeout --> a due to this error.
+So the solution is to avoid minifying .js to an incorrect format.
+Reference: https://stackoverflow.com/questions/15569168/injecting-service-to-directive
+I used another way, but we need notice that dependency injection in directive may cause minify error.
+
+
