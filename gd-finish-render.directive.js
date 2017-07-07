@@ -8,6 +8,7 @@
 		.module('app')
 		.directive('onFinishRender', onFinishRender);
 
+	onFinishRender.$inject = ['$timeout']; //inject $timeout to avoid minify error, refer 7/7 update
 	function onFinishRender($timeout) {
 		var directive = {
 			restrict: 'EA', //Element directive
